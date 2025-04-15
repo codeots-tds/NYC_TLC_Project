@@ -17,9 +17,8 @@ d. High Volume For-Hire Vehicle Trip Records (PARQUET)
 1. Project Thesis "Tipping Behavior Insights":
 Questions:
  a. What the factors that affect tip amounts in NYC Taxis?
- b. Are these the same factors between green taxis and yellow taxis?
+ b. Do card payers tip more verses cash payers?
  c. Do longer trips affect tip amount?
- d. Which zones in NYC are more proposed to give higher tips?
  e. Do more passengers equate to a higher tip?
  f. Do riders who take trips to and from airports, tip more?
  g. Best times of day for taxi drivers:
@@ -42,9 +41,8 @@ Questions:
 2. Hypothesis:
 - trips with longer travel time = bigger tips
 - trips with higher fares = bigger tips
-- trips in wealthier neighborhoods = bigger tips
 - more passengers != bigger tip
-- yes I believe people going to and from airports tend to tip more.
+
 
 3. Tools:
 - python 3.9
@@ -71,32 +69,34 @@ c. Check passenger count and correlate to fare amount and tip
 
 d. check average fare, and average tip amount and tip % by payment type
 
+e. look at trip time of day by customer amount
+
+f. look at trip time of day by payment type
+
 
 5. Policies:
  a. Encouraging/Enforcing cab drivers to accept debit/credit cards.
     - Card payers tend to tip higher.
-    - Not everyone carries cash nowadays. For tourists, younger riders who don't really
-    know the prices till after their ride they may only have enough cash for the ride.
+    - Not everyone carries cash nowadays. For tourists, younger riders who don't really know the prices till after their ride they may only have enough cash for the ride.
     - Minimizes risk of theft and danger for driver and rider carrying cash.
     - Increase ridership; this might be a preferred option over rideshare if card transactions are allowed.
     - Business travelers get electronic recipts for expense reporting.
     - Increases the likelihood of competition with rideshare apps.
 
-
 6. Possible Issues:
    - Transaction fees. 2.5%?
    - Learning how to adapt new technology.
+   - delay between payment charged and money appearing in account.
 
 7. How can this impact other TLC policies?
-  a. Improve driver earnings without changing base fair prices for customers.
+  a. Improve driver earnings without changing base fare prices for customers.
   b. Tie into wider cashless economy initatives like allowing crypto payments.
   c. Financial Transparency & Tax Compliance Policies.
   d. Modernizing TLC cab technology for a more seamless experience:
   - Enforcing more digital meters, screens etc. Further tying into NYC's green vehicle program as an incentive upgrade.
   e. Allow for better oversight on rider experience through real-time tracking.
   f. Equitable Customer Protection:
-  - allows for under priviledged people using prepaid cards(EBT, TAP) to get fair access to cabs.
-
+  - allows for under priviledged people using prepaid cards(EBT, TAP) to get fair access to cabs
 
 8. Additional Extra Credit:
   a. Does weather impact tip amount?
@@ -105,10 +105,13 @@ d. check average fare, and average tip amount and tip % by payment type
 
   c. Doing a monthly analysis, possibly even the previous 5 years.
 
-  d. get zone median income data and look up corresponding pickup/drop off location i.ds to look at factors zoning pickup impact on tip amount:
+  d. get zone median income data and look up corresponding pickup/drop off location  i.ds to look at factors zoning pickup impact on tip amount:
   e. Compare top 10 highest paid zones vs. top 10 lowest paid zones by fare and tip amount or tip percentage.
 
   f. Can holidays affect tip amount?
+  g. Are these the same factors between green taxis and yellow taxis?
+  h. Which zones in NYC are more proposed to give higher tips?
+  i. Do riders who take trips to and from airports tip more?
 
 
 

@@ -1,3 +1,5 @@
+# %%
+
 import getpass
 import os
 from pandas import DataFrame
@@ -142,7 +144,9 @@ def pass_num_on_tip_on_fare_summary(df):
         avg('tip_amount').alias('avg_tip($)'),
         count('*').alias('trip_count'),
         stddev('tip_amount').alias('std_dev_tip_amt($)'),
-        avg('trip_distance').alias('avg_trip_dist(mi)')
+        avg('trip_distance').alias('avg_trip_dist(mi)'),
+        # avg('fare_amount').alias('avg_fare_price'),
+        # spark_round((avg('tip_amount') / avg('fare_amount') * 100), 2).alias('avg_tip_pct')
     )
     return groupby_pass_num_df
 
@@ -154,7 +158,9 @@ def pay_type_on_tip_fare_avg_summary(df):
         avg('tip_amount').alias('avg_tip($)'),
         count('*').alias('trip_count'),
         stddev('tip_amount').alias('std_dev_tip_amt($)'),
-        avg('trip_distance').alias('avg_trip_dist(mi)')
+        avg('trip_distance').alias('avg_trip_dist(mi)'),
+        # avg('fare_amount').alias('avg_fare_price'),
+        # spark_round((avg('tip_amount') / avg('fare_amount') * 100), 2).alias('avg_tip_pct')
         )
     return groupby_payment_type_df
 
@@ -163,7 +169,9 @@ def groupby_ride_time_and_pay_type_summary(df):
         avg('tip_amount').alias('avg_tip($)'),
         count('*').alias('trip_count'),
         stddev('tip_amount').alias('std_dev_tip_amt($)'),
-        avg('trip_distance').alias('avg_trip_dist(mi)')
+        avg('trip_distance').alias('avg_trip_dist(mi)'),
+        # avg('fare_amount').alias('avg_fare_price'),
+        # spark_round((avg('tip_amount') / avg('fare_amount') * 100), 2).alias('avg_tip_pct')
     )
     return groupby_ridetime_paytype_df
 
@@ -172,7 +180,9 @@ def groupby_ride_time_and_passenger_number_summary(df):
         avg('tip_amount').alias('avg_tip($)'),
         count('*').alias('trip_count'),
         stddev('tip_amount').alias('std_dev_tip_amt($)'),
-        avg('trip_distance').alias('avg_trip_dist(mi)')
+        avg('trip_distance').alias('avg_trip_dist(mi)'),
+        # avg('fare_amount').alias('avg_fare_price'),
+        # spark_round((avg('tip_amount') / avg('fare_amount') * 100), 2).alias('avg_tip_pct')
     )
     return groupby_ridetime_passenger_number_df
 
@@ -202,19 +212,34 @@ yellow_trip_recs = yellow_trip_recs.withColumn(
     'category_ride_time',
     ride_time_udf('day', 'start_time')
 )
-
+#----------------------------------------------------------------------------
 #Transformation Steps
 yellow_trip_recs = tip_on_fare_pct(yellow_trip_recs)
+
+#Summary Transformations
 payment_type_summary = pay_type_on_tip_fare_avg_summary(yellow_trip_recs)
 passenger_num_summary = pass_num_on_tip_on_fare_summary(yellow_trip_recs)
+
 category_ride_time_payment_type_summary = groupby_ride_time_and_pay_type_summary(yellow_trip_recs)
 category_ride_time_passenger_num_summary = groupby_ride_time_and_passenger_number_summary(yellow_trip_recs)
 #display single groupby
 # yellow_trip_recs.show(5)
+
+#Real World Summary Stats
 # payment_type_summary.show()
 # passenger_num_summary.show()
+# payment_type_summary_df = payment_type_summary.toPandas()
+# passenger_num_summary_df = passenger_num_summary.toPandas()
+
+#Behavior Insight Card vs. Cash Insights Summary Stats
+cash_payment_count = yellow_trip_recs.filter(col("payment_type") == "Cash").count()
+card_samplecashsize_summary = yellow_trip_recs.filter(col("payment_type") == "Credit card").limit(cash_payment_count)
+card_samplecashsize_summary = pay_type_on_tip_fare_avg_summary(card_samplecashsize_summary)
+card_samplecashsize_summary_df = card_samplecashsize_summary.toPandas()
 
 # display dual groupby category_ride_time
-# category_ride_time_payment_type_summary.toPandas()
-category_ride_time_by_payment_type_df = category_ride_time_payment_type_summary.toPandas().head()
-category_ride_time_by_passenger_num_df = category_ride_time_passenger_num_summary.toPandas().head()
+# category_ride_time_by_payment_type_df = category_ride_time_payment_type_summary.toPandas()
+# category_ride_time_by_passenger_num_df = category_ride_time_passenger_num_summary.toPandas()
+
+
+# %%
