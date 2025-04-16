@@ -6,6 +6,10 @@ name = "pypi"
 [packages]
 pandas = "*"
 findspark = "*"
+notebook = "*"
+ipykernel = "*"
+matplotlib = "*"
+seaborn = "*"
 
 [dev-packages]
 ipykernel = "*"
