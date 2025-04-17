@@ -61,8 +61,7 @@ def remove_neg_numbers(df):
         (col('trip_distance') >= 0) &
         (col('total_amount') >= 0)
     )
-#was thinking about removing outliers but after taking a deeper look,
-#the trip cost to number of miles seem realistic.
+
 def remove_outliers(df):
     return df.filter(
         (col('tip_amount') <= 100) &
@@ -195,7 +194,7 @@ def plt_distance_on_tip_amount_and_fare(df):
     sample_pd = sample_df.toPandas()
 
     # Need to clip the tip_amount to reduce impact of outliers
-    sample_pd['tip_amount'] = sample_pd['tip_amount'].clip(upper=40)
+    sample_pd['tip_amount'] = sample_pd['tip_amount'].clip(upper=15)
     # clip_value = sample_pd['tip_amount'].quantile(0.99)
     # sample_pd['tip_amount'] = sample_pd['tip_amount'].clip(upper=clip_value)  
 
@@ -287,8 +286,8 @@ category_ride_time_by_payment_type_df = category_ride_time_payment_type_summary.
 # category_ride_time_by_passenger_num_df = category_ride_time_passenger_num_summary.toPandas()
 
 #average distance on tip amount
-# plt_distance_on_tip_amount_and_fare(yellow_trip_recs)
+plt_distance_on_tip_amount_and_fare(yellow_trip_recs)
 
 #Can Distance Impact Tip
-bx_plt_distance_on_card_or_cash(yellow_trip_recs)
+# bx_plt_distance_on_card_or_cash(yellow_trip_recs)
 
